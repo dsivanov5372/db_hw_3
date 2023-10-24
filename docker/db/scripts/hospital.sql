@@ -25,17 +25,18 @@ CREATE TABLE caregivers (
 );
 
 CREATE TABLE rooms (
+    record_id INTEGER PRIMARY KEY,
     room_num INTEGER,
     st_num INTEGER REFERENCES stations(st_num),
     num_of_beds INTEGER,
-    PRIMARY KEY (room_num, st_num)
+    UNIQUE(room_num, st_num)
 );
 
 CREATE TABLE patients (
     patient_num INTEGER PRIMARY KEY,
     name VARCHAR(100),
     disease VARCHAR(50),
-    room_num INTEGER REFERENCES rooms(room_num),
+    room INTEGER REFERENCES rooms(record_id),
     treated_from DATE,
     treated_to DATE
 );

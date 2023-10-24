@@ -9,31 +9,10 @@ services:
       POSTGRES_PASSWORD: ivanov_214
       POSTGRES_DATABASE: ivanov_214
       REPMGR_PASSWORD: ivanov_214
-      REPMGR_PRIMARY_HOST: postgres-master-library
-      REPMGR_PARTNER_NODES: postgres-master-library,postgres-slave-library
-      REPMGR_NODE_NAME: node-1
-      REPMGR_NODE_NETWORK_NAME: postgres-master-library
     ports:
       - "5432:5432"
     volumes:
       - .\docker\db\scripts\library.sql:/docker-entrypoint-initdb.d/library.sql
-
-  postgres-slave-library:
-    image: postgres:14.5
-    environment:
-      POSTGRES_POSTGRES_PASSWORD: ivanov_214
-      POSTGRES_USERNAME: ivanov_214
-      POSTGRES_PASSWORD: ivanov_214
-      POSTGRES_DATABASE: ivanov_214
-      REPMGR_PASSWORD: ivanov_214
-      REPMGR_PRIMARY_HOST: ivanov_214
-      REPMGR_PARTNER_NODES: postgres-master-library,postgres-slave-library
-      REPMGR_NODE_NAME: node-2
-      REPMGR_NODE_NETWORK_NAME: postgres-slave-library
-    ports:
-      - "5433:5432"
-    depends_on:
-      - postgres-master-library
 
   postgres-master-trains:
     image: postgres:14.5
@@ -43,31 +22,10 @@ services:
       POSTGRES_PASSWORD: ivanov_214
       POSTGRES_DATABASE: ivanov_214
       REPMGR_PASSWORD: ivanov_214
-      REPMGR_PRIMARY_HOST: postgres-master-trains
-      REPMGR_PARTNER_NODES: postgres-master-trains,postgres-slave-trains
-      REPMGR_NODE_NAME: node-1
-      REPMGR_NODE_NETWORK_NAME: postgres-master-trains
     ports:
       - "5434:5432"
     volumes:
       - .\docker\db\scripts\trains.sql:/docker-entrypoint-initdb.d/trains.sql
-
-  postgres-slave-trains:
-    image: postgres:14.5
-    environment:
-      POSTGRES_POSTGRES_PASSWORD: ivanov_214
-      POSTGRES_USERNAME: ivanov_214
-      POSTGRES_PASSWORD: ivanov_214
-      POSTGRES_DATABASE: ivanov_214
-      REPMGR_PASSWORD: ivanov_214
-      REPMGR_PRIMARY_HOST: ivanov_214
-      REPMGR_PARTNER_NODES: postgres-master-trains,postgres-slave-trains
-      REPMGR_NODE_NAME: node-2
-      REPMGR_NODE_NETWORK_NAME: postgres-slave-trains
-    ports:
-      - "5435:5432"
-    depends_on:
-      - postgres-master-trains
 
   postgres-master-hospital:
     image: postgres:14.5
@@ -76,29 +34,7 @@ services:
       POSTGRES_USERNAME: ivanov_214
       POSTGRES_PASSWORD: ivanov_214
       POSTGRES_DATABASE: ivanov_214
-      REPMGR_PASSWORD: ivanov_214
-      REPMGR_PRIMARY_HOST: postgres-master-hospital
-      REPMGR_PARTNER_NODES: postgres-master-hospital,postgres-slave-hospital
-      REPMGR_NODE_NAME: node-1
-      REPMGR_NODE_NETWORK_NAME: postgres-master-hospital
     ports:
       - "5436:5432"
     volumes:
       - .\docker\db\scripts\hospital.sql:/docker-entrypoint-initdb.d/hospital.sql
-
-  postgres-slave-hospital:
-    image: postgres:14.5
-    environment:
-      POSTGRES_POSTGRES_PASSWORD: ivanov_214
-      POSTGRES_USERNAME: ivanov_214
-      POSTGRES_PASSWORD: ivanov_214
-      POSTGRES_DATABASE: ivanov_214
-      REPMGR_PASSWORD: ivanov_214
-      REPMGR_PRIMARY_HOST: ivanov_214
-      REPMGR_PARTNER_NODES: postgres-master-hospital,postgres-slave-hospital
-      REPMGR_NODE_NAME: node-2
-      REPMGR_NODE_NETWORK_NAME: postgres-slave-hospital
-    ports:
-      - "5437:5432"
-    depends_on:
-      - postgres-master-hospital

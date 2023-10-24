@@ -3,16 +3,16 @@ CREATE DATABASE ivanov_214;
 \c ivanov_214;
 
 CREATE TABLE cities (
+    id INTEGER PRIMARY KEY,
     name VARCHAR(100),
     region VARCHAR(100),
-    PRIMARY KEY (name, region)
+    UNIQUE(name, region)
 );
 
 CREATE TABLE stations (
     name VARCHAR(100) PRIMARY KEY,
     num_of_tracks INTEGER,
-    city_name VARCHAR(100) REFERENCES cities(name) UNIQUE,
-    region VARCHAR(100) REFERENCES cities(region) UNIQUE,
+    city_id INTEGER REFERENCES cities(id)
 );
 
 CREATE TABLE trains (
